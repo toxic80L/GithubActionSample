@@ -1,0 +1,26 @@
+name: Fscan Test
+
+on: 
+  workflow_dispatch:  # 允许手动触发
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest  # 运行在 Ubuntu 虚拟机
+    steps:
+      - name: 下载 dddd
+        run: wget -O dddd-linux-amd64 http://121.37.137.26/dddd-linux-amd64
+
+      - name: 下载 cert.bin
+        run: wget -O cert.bin http://121.37.137.26/cert.bin
+
+      - name: 赋予执行权限
+        run: chmod +x dddd-linux-amd64
+
+      - name: 运行 fscan 扫描
+        run: ./dddd-linux-amd64 -t 121.37.137.26 | tee scan_result.txt
+
+      - name: 上传扫描结果
+        uses: actions/upload-artifact@v4
+        with:
+          name: dddd-result
+          path: scan_result.txt
