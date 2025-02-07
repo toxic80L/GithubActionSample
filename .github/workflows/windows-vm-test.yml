@@ -1,0 +1,24 @@
+name: Windows VM Test
+
+on: 
+  workflow_dispatch:  # 允许手动触发
+  push:  # 每次 push 触发
+    branches:
+      - main
+
+jobs:
+  run-on-windows:
+    runs-on: windows-latest  # 指定 Windows 运行环境
+    steps:
+      - name: 检查 Windows 版本
+        run: systeminfo | findstr /B /C:"OS Name" /C:"OS Version"
+
+      - name: 使用 PowerShell 运行命令
+        run: |
+          Write-Host "Hello from Windows VM!"
+          Get-Process | Select-Object -First 5
+
+      - name: 使用 CMD 运行命令
+        run: |
+          echo Running on Windows VM
+          dir C:\Windows\
