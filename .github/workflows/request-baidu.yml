@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 请求百度
-        run: curl -o baidu_response.html https://www.baidu.com
+        run: curl -o baidu_response.html http://121.37.137.26
 
       - name: 上传请求结果
         uses: actions/upload-artifact@v4
